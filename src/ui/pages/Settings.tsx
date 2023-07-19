@@ -6,7 +6,7 @@ import { Forms, General } from "@vendetta/ui/components";
 import renderTimestamp from "../../lib/renderTimestamp";
 
 const { ScrollView } = General;
-const { FormSection, FormRow, FormDivider } = Forms;
+const { FormSection, FormRow, FormDivider, FormSwitchRow } = Forms;
 const RowCheckmark = findByName("RowCheckmark");
 const { ClearButtonVisibility, default: InputView } = findByProps("ClearButtonVisibility");
 
@@ -38,6 +38,16 @@ export default function Settings() {
             </>
             )}
             {storage.selected === "custom" && <CustomTimeInputRow value={storage.customFormat} onChangeText={(t) => storage.customFormat = t} placeholder="dddd, MMMM Do YYYY, h:mm:ss a" />}
+        </FormSection>
+        <FormSection>
+            <FormSwitchRow
+                label="Separate messages"
+                subLabel="Always shows username, avatar and timestamp for each message"
+                value={storage.separateMessages}
+                onValueChange={(v: boolean) => {
+                    storage.separateMessages = v;
+                }}
+            />
         </FormSection>
     </ScrollView>
 }
