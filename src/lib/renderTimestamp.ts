@@ -1,6 +1,6 @@
 import { storage } from "@vendetta/plugin";
 
-export default function renderTimestamp(timestamp: moment.Moment, mode: string): string {
+export default function renderTimestamp(timestamp: moment.Moment, mode: string = storage.selected): string {
     switch (mode) {
         case "calendar":
             return timestamp.calendar();
