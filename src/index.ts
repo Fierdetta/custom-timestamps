@@ -16,12 +16,15 @@ export default {
             // Return if it's not a message row
             if (row.rowType !== 1) return
             if (storage.separateMessages) row.isFirst = true
+            row.message.__customTimestamp = renderTimestamp(row.message.timestamp)
         }))
 
         patches.push(after("generate", RowManager.prototype, ([row], { message }) => {
             // Return if it's not a message row
             if (row.rowType !== 1) return
-            if (message.timestamp) message.timestamp = renderTimestamp(row.message.timestamp, storage.selected)
+            if (row.message.__customTimestamp &&
+                message.state === "SENT" &&
+                message.timestamp) message.timestamp = row.message.__customTimestamp
         }))
     },
     onUnload: () => {
